@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:my_music/now_playing.dart';
+import 'package:my_music/screens/now_playing/now_playing.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Utililty {

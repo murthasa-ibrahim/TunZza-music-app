@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:my_music/now_playing.dart';
-import 'package:my_music/utility.dart';
+import 'package:my_music/screens/now_playing/now_playing.dart';
+import 'package:my_music/helper/utility.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class ScreenSearch extends StatelessWidget {

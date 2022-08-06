@@ -2,14 +2,16 @@ import 'dart:ui';
 
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:my_music/controllers/favourite_controller.dart';
+import 'package:my_music/custom_widgets/fav_button.dart';
 
-import 'package:my_music/helper_favourite.dart';
-import 'package:my_music/hom.dart';
-import 'package:my_music/playlist_model.dart';
-import 'package:my_music/utility.dart';
+
+import 'package:my_music/models/playlist_model.dart';
+import 'package:my_music/helper/utility.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:rxdart/rxdart.dart'as rxdart;
 
 class ScreenNowPlaying extends StatefulWidget {
   ScreenNowPlaying({Key? key, required this.song}) : super(key: key);
@@ -22,7 +24,7 @@ class ScreenNowPlaying extends StatefulWidget {
 
 class _ScreenNowPlayingState extends State<ScreenNowPlaying> {
   Stream<DurationState> get _durationStateStream =>
-      Rx.combineLatest2<Duration, Duration?, DurationState>(
+     rxdart. Rx.combineLatest2<Duration, Duration?, DurationState>(
           Utililty.myPlayer.positionStream,
           Utililty.myPlayer.durationStream,
           (position, duration) => DurationState(
@@ -33,7 +35,7 @@ class _ScreenNowPlayingState extends State<ScreenNowPlaying> {
   bool isPlaying = true;
   @override
   void initState() {
-    Favourite.isfav(widget.song[currentIndex]);
+    Get.find<FavouriteControlller>() .isfav(widget.song[currentIndex]);
     super.initState();
     Utililty.myPlayer.playerStateStream.listen((event) {
       if (widget.song.isEmpty) {

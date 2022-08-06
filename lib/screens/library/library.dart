@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:my_music/playlist.dart';
+import 'package:my_music/screens/library/playlist.dart';
 
-import 'package:my_music/playlist_model.dart';
+import 'package:my_music/models/playlist_model.dart';
 
-import 'package:my_music/utility.dart';
+import 'package:my_music/helper/utility.dart';
 
 class ScreenLibrary extends StatelessWidget {
   const ScreenLibrary({Key? key}) : super(key: key);
