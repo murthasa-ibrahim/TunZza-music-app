@@ -130,6 +130,7 @@ class _ScreenPlaylistState extends State<ScreenPlaylist>
                                                           BorderRadius.circular(8)),
                                                   child: ListTile(
                                                     onTap: () async {
+                                                      Utililty.myPlayer.stop();
                                                       await Utililty.myPlayer
                                                           .setAudioSource(
                                                               Utililty

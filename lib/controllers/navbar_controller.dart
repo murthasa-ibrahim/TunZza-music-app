@@ -7,6 +7,9 @@ import 'package:my_music/screens/search/search.dart';
 import '../screens/library/library.dart';
 
 class NavbarController extends GetxController{
+    
+    
+  
    List<Widget> screens = [
     ScreenHome(),
     const ScreenLibrary(),
@@ -15,4 +18,10 @@ class NavbarController extends GetxController{
   ];
 
   RxInt selectedIndex = 0.obs;
+
+  @override
+  void onInit() {
+    
+    super.onInit();
+  }
 }

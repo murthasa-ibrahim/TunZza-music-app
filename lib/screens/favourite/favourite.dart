@@ -64,6 +64,7 @@ class ScreenFavourite extends GetView {
                                                 BorderRadius.circular(10)),
                                         child: ListTile(
                                           onTap: () {
+                                            Utililty.myPlayer.stop();
                                             List<SongModel> newList = [
                                               ...controller.favSongs
                                             ];

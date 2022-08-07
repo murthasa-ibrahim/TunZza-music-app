@@ -2,16 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get/get.dart';
+import 'package:my_music/controllers/search_controller.dart';
 import 'package:my_music/screens/now_playing/now_playing.dart';
 import 'package:my_music/helper/utility.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class ScreenSearch extends StatelessWidget {
   ScreenSearch({Key? key}) : super(key: key);
-  final ValueNotifier<List<SongModel>> temp = ValueNotifier([]);
 
   final searchController = TextEditingController();
-
+  final sController = Get.put(SearchController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,27 +26,24 @@ class ScreenSearch extends StatelessWidget {
           ])),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-            toolbarHeight: 80,
-            backgroundColor: Colors.transparent,
-            title: Container(
-              width: double.infinity,
-              height: 40,
-              decoration: BoxDecoration(
-                  color: Colors.white24,
-                  borderRadius: BorderRadius.circular(5)),
-              child: Center(
-                child: TextField(
-                  onChanged: (String value) {
-                    searchCheck(value);
-                  },
-                  style: TextStyle(color: Colors.white),
-                  controller: searchController,
+        body: SafeArea(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  onChanged: (value) => sController.searchCheck(value),
                   decoration: InputDecoration(
-                      prefixIcon: const Icon(
+                    focusColor: Colors.amber,
+                      prefixIcon: Icon(
                         Icons.search,
                         color: Colors.white,
                       ),
+                      fillColor: Color.fromARGB(255, 10, 56, 93),
+                      filled: true,
                       suffixIcon: IconButton(
                         onPressed: () {
                           searchController.clear();
@@ -55,88 +53,68 @@ class ScreenSearch extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      hintText: 'Search...',
-                      border: InputBorder.none),
+                      hintText: 'search',
+                      hintStyle: TextStyle(color: Colors.white),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                          borderRadius: BorderRadius.all(Radius.circular(20)))),
                 ),
               ),
-            )),
-        body: ValueListenableBuilder(
-            valueListenable: temp,
-            builder:
-                (BuildContext ctx, List<SongModel> searchData, Widget? child) {
-              return AnimationLimiter(
-                child: ListView.builder(
-                  itemBuilder: ((ctx, index) {
-                    final data = searchData[index];
-                    return AnimationConfiguration.staggeredList(
-                      position: index,
-                      duration: const Duration(milliseconds: 800),
-                      child: SlideAnimation(
-                        verticalOffset: 50.0,
-                        child: FadeInAnimation(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListTile(
-                              onTap: () {
-                                final searchIndex = indexCheck(data);
+              Expanded(
+                child: GetBuilder<SearchController>(builder: (controller) {
+                  return AnimationLimiter(
+                    child: ListView.builder(
+                      itemBuilder: ((ctx, index) {
+                        final data = controller.searchResult[index];
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 800),
+                          child: SlideAnimation(
+                            verticalOffset: 50.0,
+                            child: FadeInAnimation(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ListTile(
+                                  onTap: () {
+                                    Utililty.myPlayer.stop();
+                                    FocusScope.of(context).unfocus();
 
-                                temp.value.addAll(Utililty.songsCopy);
+                                    Utililty.myPlayer.setAudioSource(
+                                        Utililty.createSongList(
+                                            controller.searchResult),
+                                        initialIndex: index);
 
-                                FocusScope.of(context).unfocus();
-                                if (searchIndex != null) {
-                                  Utililty.myPlayer.setAudioSource(
-                                      Utililty.createSongList(
-                                          Utililty.songsCopy),
-                                      initialIndex: searchIndex);
-                                }
-                                Utililty.myPlayer.play();
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: ((context) => ScreenNowPlaying(
-                                        song: Utililty.songsCopy))));
-                              },
-                              leading: QueryArtworkWidget(
-                                  id: data.id, type: ArtworkType.AUDIO),
-                              title: Text(
-                                searchData[index].title,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(color: Colors.white),
+                                    Utililty.myPlayer.play();
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: ((context) =>
+                                                ScreenNowPlaying(
+                                                    song: controller
+                                                        .searchResult))));
+                                  },
+                                  leading: QueryArtworkWidget(
+                                      id: data.id, type: ArtworkType.AUDIO),
+                                  title: Text(
+                                    controller.searchResult[index].title,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                    );
-                  }),
-                  itemCount: searchData.length,
-                ),
-              );
-            }),
+                        );
+                      }),
+                      itemCount: controller.searchResult.length,
+                    ),
+                  );
+                }),
+              ),
+            ],
+          ),
+        ),
       ),
     );
-  }
-
-  searchCheck(String value) {
-    if (value.isEmpty) {
-      temp.value.clear();
-      temp.value.addAll(Utililty.songsCopy);
-    } else {
-      temp.value.clear();
-      for (SongModel item in Utililty.songsCopy) {
-        if (item.title.toLowerCase().contains(value.toLowerCase())) {
-          temp.value.add(item);
-        }
-        temp.notifyListeners();
-      }
-    }
-  }
-
-  int? indexCheck(SongModel data) {
-    for (int i = 0; i < Utililty.songsCopy.length; i++) {
-      if (data.id == Utililty.songsCopy[i].id) {
-        return i;
-      }
-    }
-    return null;
   }
 }
