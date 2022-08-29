@@ -10,7 +10,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class ScreenSearch extends StatelessWidget {
   ScreenSearch({Key? key}) : super(key: key);
-
+   
   final searchController = TextEditingController();
   final sController = Get.put(SearchController());
   @override
@@ -35,9 +35,10 @@ class ScreenSearch extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  
                   onChanged: (value) => sController.searchCheck(value),
                   decoration: InputDecoration(
-                    focusColor: Colors.amber,
+                    
                       prefixIcon: Icon(
                         Icons.search,
                         color: Colors.white,
@@ -56,7 +57,6 @@ class ScreenSearch extends StatelessWidget {
                       hintText: 'search',
                       hintStyle: TextStyle(color: Colors.white),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red),
                           borderRadius: BorderRadius.all(Radius.circular(20)))),
                 ),
               ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -7,7 +9,10 @@ import 'package:my_music/models/playlist_model.dart';
 
 import 'package:my_music/screens/splash/splash.dart';
 
+import 'controllers/home_controller.dart';
+
 Future<void> main() async {
+  HomeController().requestPermission();
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
   await Hive.initFlutter();
@@ -27,6 +32,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('I am worked');
     return const GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Music Player',

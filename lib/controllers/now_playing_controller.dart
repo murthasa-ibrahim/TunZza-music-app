@@ -6,13 +6,7 @@ class NowPlayingController extends GetxController{
   int currentIndex = 0;
    
 
-void changeCurrentIndex(){}
-
-
-
-  @override
-  void onInit() {
-    
+void changeCurrentIndex(){
     Utililty.myPlayer.currentIndexStream.listen((index) {
       
         if (index != null) {
@@ -22,6 +16,14 @@ void changeCurrentIndex(){}
         }
         
     });
+}
+
+
+
+  @override
+  void onInit() {
+    changeCurrentIndex();
+   
     super.onInit();
   }
 }

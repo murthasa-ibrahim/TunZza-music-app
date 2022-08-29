@@ -17,7 +17,9 @@ class FavBtn extends StatefulWidget {
 class _FavBtnState extends State<FavBtn> {
   @override
   Widget build(BuildContext context) {
-    return IconButton(
+     
+    return 
+    IconButton(
       onPressed: () {
         if (widget.favController.isfav(widget.song)) {
           widget.favController.remove(widget.song.id);
@@ -51,5 +53,9 @@ class _FavBtnState extends State<FavBtn> {
               color: Colors.white,
             ),
     );
+  }
+
+  void method(){
+    
   }
 }
