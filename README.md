@@ -25,3 +25,4 @@ An ofline music player with basic functionalities made using flutter.
 
 # ![WhatsApp Image 2022-06-16 at 10 50 44 AM (1)](https://user-images.githubusercontent.com/102374617/189580506-e5ecc406-e616-4383-bc38-89be72625343.jpeg)
 # ![WhatsApp Image 2022-06-16 at 10 50 44 AM](https://user-images.githubusercontent.com/102374617/189580769-f4bd7fea-e5f7-4123-95cf-a7ef6ccc0ad3.jpeg)
+# ![WhatsApp Image 2022-06-16 at 10 50 41 AM (1)](https://user-images.githubusercontent.com/102374617/189581111-9c1ab076-9c6e-4cd1-ad73-d08c1de458dd.jpeg)
