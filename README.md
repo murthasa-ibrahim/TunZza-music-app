@@ -1,16 +1,22 @@
-# my_music
+# TunZza Music Player
 
-A new Flutter project.
+An ofline music player with basic functionalities made using flutter.
 
-## Getting Started
+# Features
+ - user can play,pause,next,and previous songs
+ - filterd search
+ - user can add favourite songs to Liked songs list
+ - user can create, add songs to playlist
+ 
+# Tools & packages used
+ - on_audio_query(package)
+ - jus_audio(package)
+ - animated_splash_screen(package)
+ - marquee(package)
+ - audio_vedio_progress_bar(package)
+ - Hive(data base)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# State management
+ - Getx
+# Play store link 
+ - https://play.google.com/store/apps/details?id=in.brototype.Tunzza
