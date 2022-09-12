@@ -20,3 +20,5 @@ An ofline music player with basic functionalities made using flutter.
  - Getx
 # Play store link 
  - https://play.google.com/store/apps/details?id=in.brototype.Tunzza
+
+# ![WhatsApp Image 2022-06-16 at 10 50 44 AM (1)](https://user-images.githubusercontent.com/102374617/189580506-e5ecc406-e616-4383-bc38-89be72625343.jpeg)
